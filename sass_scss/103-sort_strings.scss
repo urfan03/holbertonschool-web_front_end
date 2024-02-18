@@ -1,5 +1,9 @@
 @import "103-sort_list";
 
-$sorted_list: sort($list_to_sort);
+@function string-compare($a, $b) {
+    @return if($a < $b, -1, if($a > $b, 1, 0));
+}
+
+$sorted_list: list.sort($list_to_sort, $compare: string-compare);
 
 @debug $sorted_list;
