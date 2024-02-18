@@ -5,7 +5,7 @@
     $list: list-replace($list, $j, nth($list, $i));
     @return $list;
 }
-  
+
 @function bubble-sort($list) {
     $sorted: false;
     @while not $sorted {
