@@ -20,5 +20,5 @@
     @return $list;
 }
   
-  $sorted_list: bubble-sort($list_to_sort);
-  @debug $sorted_list;
+$sorted_list: bubble-sort($list_to_sort);
+@debug $sorted_list;
