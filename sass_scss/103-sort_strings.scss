@@ -1,5 +1,5 @@
-$list-to-sort: john, anna, zoe, felicia, carrie;
+$list_to_sort: john, anna, zoe, kim, felicia, carrie;
 
-$final-list: sort($list-to-sort);
+$final-list: sort($list_to_sort);
 
 @debug $final-list;
