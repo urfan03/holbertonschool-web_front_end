@@ -1,9 +1,21 @@
 @import "103-sort_list";
 
-@function string-compare($a, $b) {
-    @return if($a < $b, -1, if($a > $b, 1, 0));
-}
-
-$sorted_list: list.sort($list_to_sort, $compare: string-compare);
-
-@debug $sorted_list;
+@function sort($list_to_sort) {
+    $len: length($list_to_sort);
+    $sorted: false;
+    @while not $sorted {
+       $sorted: true;
+       @for $i from 1 to ($len - 1) {
+          $j: $i + 1;
+          @if nth($list_to_sort, $i) > nth($list_to_sort, $j) {
+             $temp: nth($list_to_sort, $i);
+             $list_to_sort: set-nth($list_to_sort, $i, nth($list_to_sort, $j));
+             $list_to_sort: set-nth($list_to_sort, $j, $temp);
+             $sorted: false;
+          }
+       }
+       $len: $len - 1;
+    }
+    @return $list_to_sort;
+ }
+@debug $list_to_sort;
