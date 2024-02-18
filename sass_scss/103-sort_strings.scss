@@ -1,24 +1,5 @@
-$list_to_sort: john anna zoe kim felicia carrie;
+@import "103-sort_list";
 
-@function swap($list, $i, $j) {
-  $list: list-replace($list, $i, nth($list, $j));
-  $list: list-replace($list, $j, nth($list, $i));
-  @return $list;
-}
+$final-list: sort($list_to_sort);
 
-@function bubble-sort($list) {
-  $sorted: false;
-  @while not $sorted {
-    $sorted: true;
-    @for $i from 1 through length($list) - 1 {
-      @if nth($list, $i - 1) > nth($list, $i) {
-        $list: swap($list, $i - 1, $i);
-        $sorted: false;
-      }
-    }
-  }
-  @return $list;
-}
-
-$sorted_list: bubble-sort($list_to_sort);
-@debug $sorted_list;
+@debug $final-list;
