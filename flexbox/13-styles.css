@@ -593,7 +593,7 @@
     border-bottom: 0.2rem solid var(--color-light-grey);
 }
 
-.post-meta-list .post-meta-author:last-child .post-meta-date:last-child .post-meta-tag:last-child {
+.post-meta-list [class*='post-meta']:last-child {
     border: none;
     margin-bottom: 3rem;
 }
@@ -606,14 +606,14 @@
     list-style: none;
 }
 
-li.tag-list {
+.tag-list li {
     display: inline;
 }
 
-li.tag-list::after {
+.tag-list li::after {
     content: ",";
 }
 
-li.tag-list:last-child::after {
+.tag-list li:last-child::after {
     content: "";
 }
