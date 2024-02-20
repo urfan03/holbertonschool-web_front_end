@@ -1,22 +1,23 @@
 @import "103-sort_list";
 
-@function sort($list_to_sort) {
-    $len: length($list_to_sort);
-    $sorted: false;
-    @while not $sorted {
-       $sorted: true;
-       @for $i from 1 to ($len - 1) {
-          $j: $i + 1;
-          @if nth($list_to_sort, $i) > nth($list_to_sort, $j) {
-             $temp: nth($list_to_sort, $i);
-             $list_to_sort: set-nth($list_to_sort, $i, nth($list_to_sort, $j));
-             $list_to_sort: set-nth($list_to_sort, $j, $temp);
-             $sorted: false;
-          }
-       }
-       $len: $len - 1;
-    }
-    @return $list_to_sort;
- }
+@function sort($list_to_sort, $order: $default-sort-order) {
 
-@debug $list_to_sort;
+   // Cycle through each item in the list
+   @for $i from 1 through length($list_to_sort) {
+ 
+     // Compare the item with the previous items in the list
+     @for $j from $i * -1 through -1 {
+ 
+       // abs() trick to loop backward
+       $j: abs($j);
+ 
+       // Compare both values
+       @if $j > 1 and str-compare(nth($list_to_sort, $j), nth($list_to_sort, $j - 1), $order) {
+         // If the item should go before the other, swap them
+         $list_to_sort: swap($list_to_sort, $j, $j - 1);
+       }
+     }
+   }
+ 
+   @debug $list_to_sort;
+ }
