@@ -1,3 +1,12 @@
 @import "103-sort_list";
 
-@debug sort_strings($list_to_sort);
+@function swap($list_to_sort, $index-a, $index-b) {
+   @if abs($index-a) > length($list_to_sort) or abs($index-b) > length($list_to_sort) {
+      @debug $list_to_sort;
+   }
+   $tmp: nth($list_to_sort, $index-a);
+   $list_to_sort: set-nth($list_to_sort, $index-a, nth($list_to_sort, $index-b));
+   $list_to_sort: set-nth($list_to_sort, $index-b, $tmp);
+   @debug $list_to_sort;
+ }
+
