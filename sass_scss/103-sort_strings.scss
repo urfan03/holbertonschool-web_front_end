@@ -1,21 +1,33 @@
 @import "103-sort_list";
 
-@mixin bubble-sort($list) {
-  @for $i from 1 through length($list) {
-    @for $j from $i + 1 through length($list) {
-      $item_i: nth($list, $i);
-      $item_j: nth($list, $j);
-      @if $item_i > $item_j {
-        $list: set-nth($list, $i, $item_j);
-        $list: set-nth($list, $j, $item_i);
-      }
+@function find-index-of-min($list) {
+  $min: nth($list, 1);
+  $index: 1;
+  @for $i from 2 through length($list) {
+    $item: nth($list, $i);
+    @if $item < $min {
+      $min: $item;
+      $index: $i;
     }
   }
+  @return $index;
 }
 
-$sorted_list: $list_to_sort;
-@include bubble-sort($sorted_list);
+// Define a function to sort a list of strings
+@function sort-list($list) {
+  $sorted: ();
+  @for $i from 1 through length($list) {
+    $index: find-index-of-min($list);
+    $sorted: append($sorted, nth($list, $index));
+    $list: remove($list, $index);
+  }
+  @return $sorted;
+}
 
+// Sort the list
+$sorted_list: sort-list($list_to_sort);
+
+// Print the sorted list in the expected format
 $sorted_list_str: '';
 @each $item in $sorted_list {
   $sorted_list_str: $sorted_list_str + '|' + $item;
