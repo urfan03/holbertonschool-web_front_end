@@ -1,5 +1,13 @@
 @import "103-sort_list";
 
-$sorted_list: sort($list_to_sort);
+@function sort-list($list) {
+  $sorted: ();
+  @each $item in $list {
+    $sorted: append($sorted, $item);
+  }
+  @return sort($sorted);
+}
+
+$sorted_list: sort-list($list_to_sort);
 
 @debug $sorted_list;
