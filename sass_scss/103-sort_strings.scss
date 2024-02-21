@@ -1,35 +1,44 @@
 @import "103-sort_list";
 
-@function find-index-of-min($list) {
-  $min: nth($list, 1);
-  $index: 1;
-  @for $i from 2 through length($list) {
-    $item: nth($list, $i);
-    @if $item < $min {
-      $min: $item;
-      $index: $i;
-    }
-  }
-  @return $index;
-}
-
-// Define a function to sort a list of strings
 @function sort-list($list) {
-  $sorted: ();
-  @for $i from 1 through length($list) {
-    $index: find-index-of-min($list);
-    $sorted: append($sorted, nth($list, $index));
-    $list: remove($list, $index);
+  @if (length($list) <= 1) {
+    @return $list;
   }
-  @return $sorted;
+  // Divide the list into two sub-lists: first half and rest
+  $half: length($list) / 2;
+  $first-half: nth($list, 1, $half);
+  $rest: nth($list, ($half + 1), length($list));
+
+  // Recursively sort the sub-lists
+  $sorted-first-half: sort-list($first-half);
+  $sorted-rest: sort-list($rest);
+
+  // Merge the sorted sub-lists using efficient merge algorithm
+  @return merge($sorted-first-half, $sorted-rest);
 }
 
-// Sort the list
-$sorted_list: sort-list($list_to_sort);
+@function merge($list1, $list2) {
+  // Base case: both lists are empty
+  @if (length($list1) == 0) {
+    @return $list2;
+  }
 
-// Print the sorted list in the expected format
-$sorted_list_str: '';
-@each $item in $sorted_list {
-  $sorted_list_str: $sorted_list_str + '|' + $item;
+  @if (length($list2) == 0) {
+    @return $list1;
+  }
+
+  // Compare the first elements of each list
+  $first1: nth($list1, 1);
+  $first2: nth($list2, 1);
+
+  @if (string-less($first1, $first2)) {
+    // First element of list1 is smaller, prepend it and merge the rest
+    @return cons($first1, merge(nth($list1, 2, length($list1)), $list2));
+  } @else {
+    // First element of list2 is smaller or equal, prepend it and merge the rest
+    @return cons($first2, merge($list1, nth($list2, 2, length($list2))));
+  }
 }
-@debug $sorted_list_str;
+
+// Debug output: Print the sorted list
+@debug("Sorted list: " + sort-list($list_to_sort));
