@@ -14,9 +14,9 @@
   }
   @return $list;
 }
-$sorted_list: 0; // Initialize an empty list
-$sorted_list: append($sorted_list, $list_to_sort); // Copy the original list
-$sorted_list: $sorted_list !global; // Declare global variable
+$sorted_list: 0;
+$sorted_list: append($sorted_list, $list_to_sort);
+$sorted_list: $sorted_list !global;
 @include bubble-sort($sorted_list);
 
-@debug $sorted_list;
+@debug "|#{join($sorted_list, '|')}|";
