@@ -1,13 +1,22 @@
 @import "103-sort_list";
 
-@function sort-list($list) {
-  $sorted: ();
-  @each $item in $list {
-    $sorted: append($sorted, $item);
+@mixin bubble-sort($list) {
+  $n: length($list);
+  @for $i from 1 through $n {
+    @for $j from $i + 1 through $n {
+      $item_i: nth($list, $i);
+      $item_j: nth($list, $j);
+      @if $item_i > $item_j {
+        $list: set-nth($list, $i, $item_j);
+        $list: set-nth($list, $j, $item_i);
+      }
+    }
   }
-  @return sort($sorted);
+  @return $list;
 }
-
-$sorted_list: sort-list($list_to_sort);
+$sorted_list: 0; // Initialize an empty list
+$sorted_list: append($sorted_list, $list_to_sort); // Copy the original list
+$sorted_list: $sorted_list !global; // Declare global variable
+@include bubble-sort($sorted_list);
 
 @debug $sorted_list;
