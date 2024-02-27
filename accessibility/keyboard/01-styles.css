@@ -694,9 +694,9 @@
       position: relative;
     }
   
-    .card-work .card-title {
+    /* .card-work .card-title {
       opacity: 1;
-    }
+    } */
   
     .card-work .card-title a {
       display: block;
@@ -704,14 +704,14 @@
       opacity: 0;
     }
   
-    .card-work:hover .card-inner {
+    /* .card-work:hover .card-inner {
       background-color: transparent;
-    }
+    } */
   
     .card-work:hover .card-image {
       transform: none;
     }
-  }
+  } 
   
   /* Card SERVICES
       ============================= */
