@@ -194,6 +194,7 @@
     left: -100vw;
     position: absolute;
   }
+  
   .skip-link {
     background: var(--color-black);
     color: var(--color-white);
